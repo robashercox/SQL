@@ -1,0 +1,6 @@
+
+update oppSites set old_zoning = existing.zoning from 
+(
+select oppSites.id as id , zoning_existing.sym_code as zoning from zoning_existing, oppSites where st_within(st_centroid(oppSites.geom), zoning_existing.geom)
+) existing
+where existing.id = oppSites.id;
